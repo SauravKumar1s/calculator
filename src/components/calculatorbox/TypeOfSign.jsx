@@ -2,8 +2,10 @@ import { useState } from "react";
 import { CheckboxInput, TextInput } from "../common/Input";
 import Heading from "../common/Heading";
 import { LeftIcon, RightIcon } from "../svgicon";
+import { useNavigate } from "react-router-dom";
 
 const TypeOfSign = () => {
+ 
   const signTypes = [
     {
       name: "LightBox",
@@ -59,11 +61,14 @@ const TypeOfSign = () => {
     },
     // Add more sign types as needed
   ];
-
+  const navigate = useNavigate();
   const [selectedCard, setSelectedCard] = useState(null);
 
   const handleCardClick = (index) => {
     setSelectedCard(index);
+  };
+  const NavvigateRight = () => {
+    navigate("choose-side-width");
   };
 
   return (
@@ -98,16 +103,15 @@ const TypeOfSign = () => {
 
           <TextInput label="Horizontal" id="horizontal-input" unit="Cm" />
           <TextInput label="Vertical" id="vertical-input" unit="Cm" />
-<div className="px-14 flex flex-col gap-6">
-     <CheckboxInput label="One-Sided" />
-          <CheckboxInput label="Two-Sided" />
-</div>
-       
+          <div className="px-14 flex flex-col gap-6">
+            <CheckboxInput label="One-Sided" />
+            <CheckboxInput label="Two-Sided" />
+          </div>
+
           <div className="flex items-end justify-center ">
-            <RightIcon />
+            <RightIcon onclick={NavvigateRight} />
           </div>
         </div>
-        
       </div>
     </>
   );
