@@ -41,7 +41,7 @@ export const CheckboxInput = ({ label }) => {
   );
 };
 
-export const CheckboxProfile = ({ label }) => {
+export const CheckboxProfile = ({ label, checked, onChange }) => {
   return (
     <div className="flex flex-col items-start ">
       <div className="flex gap-4 items-center justify-between">
@@ -51,6 +51,8 @@ export const CheckboxProfile = ({ label }) => {
       
           <input
             type="checkbox"
+            checked={checked}
+            onChange={onChange}
             className="form-checkbox bg-[##D9D9D9] rounded-full h-4 w-5 text-indigo-600"
           />
       

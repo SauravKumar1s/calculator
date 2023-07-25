@@ -1,75 +1,37 @@
-import { useState } from "react";
-import { CheckboxInput, TextInput } from "../common/Input";
-import Heading from "../common/Heading";
-import { LeftIcon, RightIcon } from "../svgicon";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react'
+import { CheckboxInput, TextInput } from '../common/Input'
+import Heading from '../common/Heading'
+import { RightIcon } from '../svgicon'
+import { useNavigate } from 'react-router-dom'
+import { signTypes } from '../data/signTypes'
+import { useLocalStorage } from '@mantine/hooks'
 
 const TypeOfSign = () => {
- 
-  const signTypes = [
-    {
-      name: "LightBox",
-      description: "flexible face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
+  const navigate = useNavigate()
+  const [selectedCard, setSelectedCard] = useState(null)
 
-    {
-      name: "LightBox",
-      description: "acrylic face",
+  const [state, setState] = useLocalStorage({
+    key: 'data_cal',
+    defaultValue: {
+      id: 1,
+      name: 'LightBoxs',
+      description: 'flexible face',
       imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
+        'https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg',
     },
-
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-
-    {
-      name: "LightBox",
-      description: "acrylic face",
-      imageUrl:
-        "https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg",
-    },
-    // Add more sign types as needed
-  ];
-  const navigate = useNavigate();
-  const [selectedCard, setSelectedCard] = useState(null);
+  })
 
   const handleCardClick = (index) => {
-    setSelectedCard(index);
-  };
+    setSelectedCard(index)
+  }
   const NavvigateRight = () => {
-    navigate("choose-side-width");
-  };
+    if (selectedCard !== null) {
+      const selectedSign = signTypes[selectedCard]
+      navigate('choose-side-width', {
+        state: { id: selectedSign.id, discription: selectedSign.description },
+      })
+    }
+  }
 
   return (
     <>
@@ -81,9 +43,13 @@ const TypeOfSign = () => {
               <div
                 key={index}
                 className={`flex py-4 cursor-pointer ${
-                  selectedCard === index ? "bg-gray-200 rounded-xl" : ""
+                  selectedCard === index ? 'bg-gray-200 rounded-xl' : ''
                 }`}
-                onClick={() => handleCardClick(index)}
+                onClick={() => {
+                  setState(sign)
+                  navigate("choose-side-width")
+
+                }}
               >
                 <div className="w-32 h-auto">
                   <img src={sign.imageUrl} alt={sign.name} />
@@ -114,7 +80,7 @@ const TypeOfSign = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default TypeOfSign;
+export default TypeOfSign

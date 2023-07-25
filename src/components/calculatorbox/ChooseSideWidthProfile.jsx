@@ -1,10 +1,42 @@
-import React from "react";
+import React , {useState , useEffect} from "react";
 import Heading from "../common/Heading";
 import { CheckboxInput, CheckboxProfile } from "../common/Input";
 import Title from "../common/Title";
 import { LeftIcon, RightIcon } from "../svgicon";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const ChooseSideWidthProfile = () => {
+  const location = useLocation();
+  const selectedSignId = location.state.id;
+  const selectedSignName = location.state.discription;
+
+  const [state, setState] = useLocalStorage({
+    key: 'data_cal',
+    defaultValue: {
+      id: 1,
+      name: 'LightBoxs',
+      description: 'flexible face',
+      imageUrl:
+        'https://cdn.pixabay.com/photo/2015/11/15/07/47/geometry-1044090_1280.jpg',
+    },
+  })
+
+  // State variable to store the selected sign's name
+  const [selectedSign, setSelectedSign] = useState(null);
+
+  useEffect(() => {
+    // Update the selected sign's name when the component mounts
+    setSelectedSign(selectedSignName);
+  }, [selectedSignName]);
+
+  
+  // State variable to store the selected profile
+  const [selectedProfile, setSelectedProfile] = useState(null);
+
+  // Function to handle selecting a profile
+  const handleProfileSelection = (profile) => {
+    setSelectedProfile(profile);
+  };
+
   
   const signTypes = [
     {
@@ -31,21 +63,27 @@ const ChooseSideWidthProfile = () => {
   ];
   const navigate = useNavigate();
   const NavvigateRight = () => {
-    navigate("choose-side-width");
+    navigate("/choose-color-profile");
   };
   const NavvigateLeft = () => {
-    navigate("/about");
+    if (selectedCard !== null) {
+      const selectedSign = signTypes[selectedCard];
+      navigate("/choose-side-width", { state: { id: selectedSign.id, discription: selectedSign.description } });
+    }
+    
   };
   return (
     <div className="flex">
       <div className="w-2/3  border-r border-full-black h-3/4">
-        <Title text="1" text2="the chosen type of sign" />
+        <Title text="1" text2={state.discription}/>
         <div className=" px-10 py-2">
           <Heading text="2. Choose Side Width Profile" />
           <div
             className="grid grid-cols-1 mt-2 overflow-auto"
             style={{ maxHeight: "520px" }}
           >
+              {/* <p>{selectedSign}</p> */}
+           
             {/* Set a fixed height (maxHeight) for the container and add overflow-auto */}
             {signTypes.map((sign, index) => (
               <div
@@ -54,7 +92,11 @@ const ChooseSideWidthProfile = () => {
               >
                 <div className="w-3/4 h-auto">
                   <div className="flex flex-col gap-6">
-                    <CheckboxProfile label={sign.profile} />
+                  <CheckboxProfile
+                    label={sign.profile}
+                    checked={sign.profile === selectedProfile}
+                    onChange={() => handleProfileSelection(sign.profile)}
+                  />
                     <img src={sign.imageUrl} alt={sign.name} />
                   </div>
                 </div>
