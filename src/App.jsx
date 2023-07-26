@@ -39,7 +39,7 @@ function App() {
             />
             <Route
               exact
-              path="calculate-the-price"
+              path="/calculate"
               element={<CalculateThePrice />}
             />{" "}
             <Route

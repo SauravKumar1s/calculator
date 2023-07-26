@@ -60,3 +60,21 @@ export const CheckboxProfile = ({ label, checked, onChange }) => {
     </div>
   );
 };
+
+
+
+export const CheckboxProfile2 = ({ label, isSelected, onSelect }) => {
+  return (
+    <label>
+      <input
+        type="checkbox"
+        checked={isSelected}
+        onChange={() => onSelect(label)}
+      />
+      {label}
+    </label>
+  );
+};
+
+export default CheckboxProfile;
+
