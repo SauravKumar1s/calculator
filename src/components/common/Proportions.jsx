@@ -11,9 +11,10 @@ const Proportions = () => {
     const items = JSON.parse(localStorage.getItem('Dimensions'));
     if (items) {
       
-      
+      /* getting from local storage */
       setHorizontalValue(items[0].horizontalInput);
       setVerticalValue(items[1].verticalInput);
+      console.log(items)
     }
   }, []);
  
