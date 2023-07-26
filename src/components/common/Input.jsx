@@ -28,7 +28,7 @@ export const TextInput = ({ label, id, unit,value,onChange }) => {
   );
 };
 
-export const CheckboxInput = ({ label }) => {
+export const CheckboxInput = ({ label,checked,onChange }) => {
   return (
     <div className="flex flex-col items-start ">
       <div className="flex items-center justify-between">
@@ -39,6 +39,10 @@ export const CheckboxInput = ({ label }) => {
           <input
             type="checkbox"
             className="form-checkbox bg-[##D9D9D9] rounded-full h-5 w-5 text-indigo-600"
+            checked={checked}
+            onChange={(e) => {
+              
+             return onChange(e.target.checked)}}
           />
         </div>
       </div>
