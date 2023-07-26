@@ -7,6 +7,8 @@ const Proportions = () => {
 
   const [horizontalValue,setHorizontalValue] = useState("");
   const [verticalValue,setVerticalValue] = useState("");
+  const [isHorizontal,setIsHorizontal] = useState(false);
+  const [isVertical,setIsVertical] = useState(false);
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('Dimensions'));
     if (items) {
@@ -14,15 +16,23 @@ const Proportions = () => {
       /* getting from local storage */
       setHorizontalValue(items[0].horizontalInput);
       setVerticalValue(items[1].verticalInput);
+      setIsHorizontal(items[2].isHorizontal);
+      setIsVertical(items[3].isVertical);
       console.log(items)
     }
   }, []);
  
   /* const containerClass = horizontalValue ? `w-${horizontalValue}px h-${verticalValue}px` : ''; */
-  const containerStyle = {
+  const containerStyle =   
+  isVertical?
+  ({
+    width:  verticalValue ? `${verticalValue}px` : undefined,
+    height:horizontalValue ? `${horizontalValue}px` : undefined,
+  })
+    :({
     width: horizontalValue ? `${horizontalValue}px` : undefined,
-    height: horizontalValue ? `${horizontalValue}px` : undefined,
-  };
+    height: verticalValue ? `${verticalValue}px` : undefined,
+  });
   return (
     <>
       <div className="text-center mt-10">

@@ -15,7 +15,10 @@ const TypeOfSign = () => {
   });
   const [horizontalInput, setHorizontalInput] = useState('');
   const [verticalInput, setVerticalInput] = useState('');
-
+  const [isHorizontal,setIsHorizontal] = useState(true)
+  const [isVertical,setIsVertical] = useState(true)
+    console.log(isVertical)
+    console.log(isHorizontal)
   const handleCardClick = (index) => {
     setSelectedCard(index);
   };
@@ -24,7 +27,7 @@ const TypeOfSign = () => {
     if (selectedCard !== null) {
       const selectedSign = signTypes[selectedCard];
 
-      localStorage.setItem("Dimensions",JSON.stringify([{horizontalInput},{verticalInput}]))
+      localStorage.setItem("Dimensions",JSON.stringify([{horizontalInput},{verticalInput},{"isHorizontal":isHorizontal},{"isVertical":isVertical}]))
 
       navigate('/choose-side-width', {
         state: {
@@ -85,8 +88,16 @@ const TypeOfSign = () => {
             onChange={setVerticalInput}
           />
           <div className="px-14 flex flex-col gap-6">
-            <CheckboxInput label="Horizontal" />
-            <CheckboxInput label="Vertical" />
+            <CheckboxInput 
+            label="Horizontal"
+            checked={isHorizontal}
+            onChange={setIsHorizontal}
+            />
+            <CheckboxInput 
+            label="Vertical" 
+            checked={isVertical}
+            onChange={setIsVertical}
+            />
           </div>
           <div className="flex items-end justify-center " onClick={NavvigateRight}>
             <RightIcon onClick={NavvigateRight} />
