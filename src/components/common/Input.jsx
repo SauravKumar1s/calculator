@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
-export const TextInput = ({ label, id, unit }) => {
+export const TextInput = ({ label, id, unit,value,onChange }) => {
+  /* const [horizontalInput,setHorizontalInput] = useState(); */
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center justify-between">
@@ -14,6 +15,10 @@ export const TextInput = ({ label, id, unit }) => {
           type="text"
           id={id}
           className="border rounded px-2 py-1 bg-[#D9D9D9]"
+          value={value}
+          onChange={(e) => 
+            
+            onChange(e.target.value)}
         />
         <label htmlFor={id} className="ml-2 font-semibold">
           {unit}
