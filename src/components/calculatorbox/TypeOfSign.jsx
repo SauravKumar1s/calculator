@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Heading from '../common/Heading';
 import { CheckboxInput, TextInput } from '../common/Input';
 import { RightIcon } from '../svgicon';
@@ -23,6 +23,9 @@ const TypeOfSign = () => {
   const NavvigateRight = () => {
     if (selectedCard !== null) {
       const selectedSign = signTypes[selectedCard];
+
+      localStorage.setItem("Dimensions",JSON.stringify([{horizontalInput},{verticalInput}]))
+
       navigate('/choose-side-width', {
         state: {
           selectedSign,
@@ -32,7 +35,9 @@ const TypeOfSign = () => {
       });
     }
   };
-
+  useEffect(() => {
+    localStorage.setItem("Dimensions",JSON.stringify({horizontalInput},{verticalInput}))
+  }, [NavvigateRight]);
   return (
     <>
       <div className="flex">
@@ -70,14 +75,14 @@ const TypeOfSign = () => {
             id="horizontal-input"
             unit="Cm"
             value={horizontalInput}
-            onChange={(e) => setHorizontalInput(e.target.value)}
+            onChange={setHorizontalInput}
           />
           <TextInput
             label="Vertical"
             id="vertical-input"
             unit="Cm"
             value={verticalInput}
-            onChange={(e) => setVerticalInput(e.target.value)}
+            onChange={setVerticalInput}
           />
           <div className="px-14 flex flex-col gap-6">
             <CheckboxInput label="Horizontal" />
@@ -93,3 +98,4 @@ const TypeOfSign = () => {
 };
 
 export default TypeOfSign;
+
